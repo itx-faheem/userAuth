@@ -1,34 +1,57 @@
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
-import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert, Button } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { COLORS, SIZES, images } from '../../../../constant';
 import Input from '../../../../Component/Input';
 import LoginInputs from './LoginInputs';
 import AppButton from '../../../../Component/AppButton';
 import LoginIconSection from './LoginIconSection';
-import notifee, {AndroidImportance} from '@notifee/react-native'
+import notifee, { AndroidImportance } from '@notifee/react-native'
+import { GoogleSignin, statusCodes, } from '@react-native-google-signin/google-signin';
+import auth from '@react-native-firebase/auth'
+
+GoogleSignin.configure();
 
 const LoginScreen = ({ navigation }: any) => {
+  const [userInfo, setuserInfo] = useState(null)
+  // useEffect(() => {
+  //   GoogleSignin.configure({ webClientId: "1044322982667-foho9atttlnbc0vuto5gjfh7bfjni583.apps.googleusercontent.com" });
+  // }, []);
 
-  useEffect(() => {
-  }, []);
+  const signIn = async (): Promise<void> => {
+    try {
+      let hasPlayServices = await GoogleSignin.hasPlayServices();
+      if (hasPlayServices) {
+        const { user } = await GoogleSignin.signIn();
+        navigation.navigate("Main")
+        setuserInfo(user)
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+        return auth().signInWithCredential(googleCredential);
+      }
+    } catch (error) {
+      console.log({ error: error.message })
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      } else {
+      }
+    }
+  };
+
 
   const displayNotification = async () => {
     await notifee.requestPermission()
     const channelId = await notifee.createChannel({
-      id:'Chat Notification',
-      name:'Chat Channel',
-      importance:AndroidImportance.HIGH
+      id: 'Chat Notification',
+      name: 'Chat Channel',
+      importance: AndroidImportance.HIGH
     })
-await notifee.displayNotification({
-  title:'Chat Title',
-  body: "this is Chat notitification",
-  android:{
-    channelId,
-  }
-})
-
-    
-
+    await notifee.displayNotification({
+      title: 'Login Successfully',
+      body: `Welcome, You have successfully logged in.`,
+      android: {
+        channelId,
+      }
+    })
   };
 
 
@@ -40,17 +63,24 @@ await notifee.displayNotification({
       <View style={styles.container}>
         <View style={{ marginVertical: 25, gap: 5 }} >
           <Image source={images.Group} style={styles.imgStyle} />
-          <Text style={styles.singText} >Sing in your account</Text>
+          <Text style={styles.singText} >Sign in your account</Text>
         </View>
         <View>
           <LoginInputs />
         </View>
+        {/* 
+        {
+          userInfo != null && <Image source={{ uri: userInfo.user?.photo }} />
+        } */}
         <AppButton
           onPress={displayNotification}
           disabled={false}
           title='Sign In' />
         <View>
-          <LoginIconSection title="in" />
+          <LoginIconSection
+            onPressWithGoogle={signIn}
+            onPressWithFacebook={() => Alert.alert("comming soon")}
+            title="in" />
         </View>
         <View style={styles.footerWrapper} >
           <Text style={styles.footerText}>Don't have an account?</Text>
@@ -100,3 +130,17 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
+
+
+
+
+      // let hasPlayServices = await GoogleSignin.hasPlayServices();
+      // if (hasPlayServices) {
+      //   const { user } = await GoogleSignin.signIn();
+      //    setuserInfo(user)
+
+      // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+      // return auth().signInWithCredential(googleCredential);
+      // }

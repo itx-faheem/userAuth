@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import Input from '../../../../Component/Input'
 import { COLORS, SIZES } from '../../../../constant'
 import AppButton from '../../../../Component/AppButton'
-
-
+import { useNavigation } from "@react-navigation/native";
 
 const SignUpInputs = () => {
+    const Navigation = useNavigation()
     const [name, setname] = useState('')
     const [email, setemail] = useState('')
     const [Password, setPassword] = useState('')
@@ -101,8 +101,9 @@ const SignUpInputs = () => {
             </View>
             <View>
                 <AppButton
-                    disabled={!email || !name || !Password || !confirmPasswor}
-                    onPress={() => Alert.alert("done")}
+                    // disabled={!email || !name || !Password || !confirmPasswor}
+                    disabled={false}
+                    onPress={() => Navigation.push('Main')}
                     title='Sign Up' />
 
             </View>

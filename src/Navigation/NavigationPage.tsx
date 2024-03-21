@@ -4,8 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from "../../Component/Splash";
 import LoginScreen from '../Screens/Auth/Login/LoginScreen';
 import SignUpScreen from '../Screens/Auth/SignUp/SignUpScreen';
-
-
+import Main from '../Screens/main';
 const NavigationPage = () => {
     const [isSplashscreen, setisSplashscreen] = useState(true)
 
@@ -26,6 +25,7 @@ const NavigationPage = () => {
             }
             < Stack.Screen name='LoginScreen' component={LoginScreen} />
             < Stack.Screen name='SignUpScreen' component={SignUpScreen} />
+            < Stack.Screen name='Main' component={Main} />
         </Stack.Navigator>
     )
 }

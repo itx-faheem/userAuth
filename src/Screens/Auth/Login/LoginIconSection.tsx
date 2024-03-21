@@ -2,17 +2,23 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-na
 import React from 'react'
 import { COLORS, SIZES, images } from '../../../../constant'
 
-const LoginIconSection = ({ title }: any) => {
+interface props {
+    title: string,
+    onPressWithFacebook: () => void,
+    onPressWithGoogle: () => void,
+
+}
+const LoginIconSection = ({ title, onPressWithFacebook, onPressWithGoogle }: props) => {
     return (
         <View style={{ gap: 10, top: 20 }} >
             <Text style={styles.headerText} >or sign {title} with</Text>
             <View style={{ paddingHorizontal: 10, }} >
-                <TouchableOpacity onPress={() => Alert.alert('Comming soon')} style={styles.Wrapper} >
+                <TouchableOpacity onPress={onPressWithFacebook} style={styles.Wrapper} >
                     <Image style={styles.iconSty} source={images.facebook} />
                     <Text style={styles.textStyle} >Continue With Gmail</Text>
                     <Text style={styles.textStyle} ></Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => Alert.alert('Comming soon')} style={styles.Wrapper} >
+                <TouchableOpacity onPress={onPressWithGoogle} style={styles.Wrapper} >
                     <Image style={styles.iconSty} source={images.google} />
                     <Text style={styles.textStyle} >Continue With Google</Text>
                     <Text style={styles.textStyle} ></Text>

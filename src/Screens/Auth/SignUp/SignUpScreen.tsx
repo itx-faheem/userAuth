@@ -8,7 +8,6 @@ import AppButton from '../../../../Component/AppButton';
 
 const SignUpScreen = ({ navigation }: any) => {
   const DimensionsHight = Dimensions.get("window").height
-  console.log(DimensionsHight, "DimensionsHight");
 
   return (
     <ScrollView
