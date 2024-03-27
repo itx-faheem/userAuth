@@ -8,27 +8,50 @@ import LoginIconSection from './LoginIconSection';
 import notifee, { AndroidImportance } from '@notifee/react-native'
 import { GoogleSignin, statusCodes, } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore';
 
 GoogleSignin.configure();
+interface UserData {
+  id: string;
+  name: string;
+  email: string;
+  photo: string;
+  familyName: string;
+  givenName: string;
+  idToken: any,
+
+}
 
 const LoginScreen = ({ navigation }: any) => {
-  const [userInfo, setuserInfo] = useState(null)
-  // useEffect(() => {
-  //   GoogleSignin.configure({ webClientId: "1044322982667-foho9atttlnbc0vuto5gjfh7bfjni583.apps.googleusercontent.com" });
-  // }, []);
-
-  const signIn = async (): Promise<void> => {
+  const [userInfo, setuserInfo] = useState<UserData | null>(null)
+  useEffect(() => {
+    GoogleSignin.configure();
+  }, []);
+  const signIn = async (): Promise<any> => {
     try {
       let hasPlayServices = await GoogleSignin.hasPlayServices();
       if (hasPlayServices) {
         const { user } = await GoogleSignin.signIn();
         navigation.navigate("Main")
         setuserInfo(user)
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+        displayNotification()
+        try {
+          let result = await firestore().collection('users').doc(user.uid).set({
+            name: user.name,
+            familyName: user.familyName,
+            givenName: user.givenName,
+            id: user.id,
+            photo: user.photo,
+            email: user.email,
+          });
+        } catch (e) {
+          console.log(e)
+        }
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken)
         return auth().signInWithCredential(googleCredential);
       }
     } catch (error) {
-      console.log({ error: error.message })
+      console.log(error)
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       } else if (error.code === statusCodes.IN_PROGRESS) {
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
@@ -37,24 +60,25 @@ const LoginScreen = ({ navigation }: any) => {
     }
   };
 
+  // const displayNotification = async (): Promise<any> => {
+  //   await notifee.requestPermission()
+  //   const channelId = await notifee.createChannel({
+  //     id: 'Chat Notification',
+  //     name: 'Chat Channel',
+  //     importance: AndroidImportance.HIGH
+  //   })
+  //   await notifee.displayNotification({
+  //     title: 'Login Successfully',
+  //     body: `Welcome, ${userInfo?.name}. You have successfully logged in.`,
+  //     android: {
+  //       channelId,
+  //     }
+  //   })
+  // };
 
-  const displayNotification = async () => {
-    await notifee.requestPermission()
-    const channelId = await notifee.createChannel({
-      id: 'Chat Notification',
-      name: 'Chat Channel',
-      importance: AndroidImportance.HIGH
-    })
-    await notifee.displayNotification({
-      title: 'Login Successfully',
-      body: `Welcome, You have successfully logged in.`,
-      android: {
-        channelId,
-      }
-    })
-  };
-
-
+  const displayNotification = () => {
+    navigation.navigate("Main")
+  }
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
@@ -68,10 +92,6 @@ const LoginScreen = ({ navigation }: any) => {
         <View>
           <LoginInputs />
         </View>
-        {/* 
-        {
-          userInfo != null && <Image source={{ uri: userInfo.user?.photo }} />
-        } */}
         <AppButton
           onPress={displayNotification}
           disabled={false}
@@ -131,16 +151,3 @@ const styles = StyleSheet.create({
   }
 });
 
-
-
-
-
-      // let hasPlayServices = await GoogleSignin.hasPlayServices();
-      // if (hasPlayServices) {
-      //   const { user } = await GoogleSignin.signIn();
-      //    setuserInfo(user)
-
-      // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-      // return auth().signInWithCredential(googleCredential);
-      // }

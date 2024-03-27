@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Dimensions, Alert } from 'react-native';
 import React from 'react';
 import { COLORS, SIZES, images } from '../../../../constant';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -25,7 +25,10 @@ const SignUpScreen = ({ navigation }: any) => {
             <Text style={styles.accountText}>Create your account</Text>
           </View>
           <SignUpInputs />
-          <LoginIconSection title="up" />
+          <LoginIconSection
+            onPressWithFacebook={() => Alert.alert("hello wold")}
+            onPressWithGoogle={() => Alert.alert("hello wold")}
+            title="up" />
           <View style={styles.footerWrapper}>
             <Text style={styles.footerText}>Hava an account</Text>
             <TouchableOpacity onPress={() => navigation.goBack()}>

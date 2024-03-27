@@ -8,31 +8,6 @@ import notifee, { AndroidImportance } from '@notifee/react-native'
 
 const App = () => {
 
-  useEffect(() => {
-    (async () => {
-      // let token = await messaging().getToken()
-      // console.log(token)
-      // await messaging().requestPermission()
-    })()
-
-    // const unsub = messaging().onMessage(async message => {
-    //   const channelId = await notifee.createChannel({
-    //     id: '1',
-    //     name: 'chat channel',
-    //     importance: AndroidImportance.HIGH
-    //   })
-
-    //   await notifee.displayNotification({
-    //     id: '1',
-    //     title: message.notification?.title,
-    //     body: message.notification?.body,
-    //     android: {
-    //       channelId
-    //     }
-    //   })
-    // })
-    // return unsub
-  }, [])
   return (
     <>
       <StatusBar backgroundColor={COLORS.primaryBlackHex} />
@@ -46,3 +21,30 @@ const App = () => {
 export default App
 
 
+
+
+// useEffect(() => {
+//   (async () => {
+    // let token = await messaging().getToken()
+    // console.log(token)
+    // await messaging().requestPermission()
+  // })()
+
+  // const unsub = messaging().onMessage(async message => {
+  //   const channelId = await notifee.createChannel({
+  //     id: '1',
+  //     name: 'chat channel',
+  //     importance: AndroidImportance.HIGH
+  //   })
+
+  //   await notifee.displayNotification({
+  //     id: '1',
+  //     title: message.notification?.title,
+  //     body: message.notification?.body,
+  //     android: {
+  //       channelId
+  //     }
+  //   })
+  // })
+  // return unsub
+// }, [])

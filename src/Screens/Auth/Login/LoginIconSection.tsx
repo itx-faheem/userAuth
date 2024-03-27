@@ -10,21 +10,23 @@ interface props {
 }
 const LoginIconSection = ({ title, onPressWithFacebook, onPressWithGoogle }: props) => {
     return (
-        <View style={{ gap: 10, top: 20 }} >
-            <Text style={styles.headerText} >or sign {title} with</Text>
-            <View style={{ paddingHorizontal: 10, }} >
-                <TouchableOpacity onPress={onPressWithFacebook} style={styles.Wrapper} >
-                    <Image style={styles.iconSty} source={images.facebook} />
-                    <Text style={styles.textStyle} >Continue With Gmail</Text>
-                    <Text style={styles.textStyle} ></Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={onPressWithGoogle} style={styles.Wrapper} >
-                    <Image style={styles.iconSty} source={images.google} />
-                    <Text style={styles.textStyle} >Continue With Google</Text>
-                    <Text style={styles.textStyle} ></Text>
-                </TouchableOpacity>
+        <>
+            <View style={{ gap: 10, top: 20 }} >
+                <Text style={styles.headerText} >or sign {title} with</Text>
+                <View style={{ paddingHorizontal: 10, }} >
+                    <TouchableOpacity onPress={onPressWithFacebook} style={styles.Wrapper} >
+                        <Image style={styles.iconSty} source={images.facebook} />
+                        <Text style={styles.textStyle} >Continue With Gmail</Text>
+                        <Text style={styles.textStyle} ></Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={onPressWithGoogle} style={styles.Wrapper} >
+                        <Image style={styles.iconSty} source={images.google} />
+                        <Text style={styles.textStyle} >Continue With Google</Text>
+                        <Text style={styles.textStyle} ></Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
+        </>
     )
 }
 

@@ -103,7 +103,7 @@ const SignUpInputs = () => {
                 <AppButton
                     // disabled={!email || !name || !Password || !confirmPasswor}
                     disabled={false}
-                    onPress={() => Navigation.push('Main')}
+                    onPress={() => Navigation.navigate('HomeScreen')}
                     title='Sign Up' />
 
             </View>
