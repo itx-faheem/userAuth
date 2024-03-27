@@ -2,6 +2,9 @@ import amazonpay from "../assets/amazonpay.png";
 import americanoPic1Portrait from "../assets/americano_pic_1_portrait.png";
 import americanoPic2Portrait from "../assets/americano_pic_2_portrait.png";
 import americanoPic3Portrait from "../assets/americano_pic_3_portrait.png";
+import americanoPic1square from "../assets/americano_pic_1_square.png";
+import americanoPic2square from "../assets/americano_pic_2_square.png";
+import americanoPic3square from "../assets/americano_pic_3_square.png";
 import applepay from "../assets/applepay.png";
 import Beans from "../assets/arabica_coffee_beans_portrait.png";
 import avatar from "../assets/avatar.png";
@@ -10,6 +13,9 @@ import robustacoffeebig from "../assets/robusta_coffee_beans_portrait.png";
 import macchiato1square from "../assets/macchiato_pic_1_square.png";
 import macchiato2square from "../assets/macchiato_pic_2_square.png";
 import macchiato3square from "../assets/macchiato_pic_3_square.png";
+import macchiato1portrait from "../assets/macchiato_pic_1_portrait.png";
+import macchiato2portrait from "../assets/macchiato_pic_2_portrait.png";
+import macchiato3portrait from "../assets/macchiato_pic_3_portrait.png";
 import libericaBig from "../assets/liberica_coffee_beans_portrait.png";
 import libericaSmall from "../assets/liberica_coffee_beans_square.png";
 import latte1Portrait from "../assets/latte_pic_1_portrait.png";
@@ -45,6 +51,8 @@ import Group from "../assets/Group.png";
 import facebook from "../assets/facebook.png";
 import google from "../assets/google.png";
 import email from "../assets/email.png";
+
+
 export default {
     amazonpay,
     americanoPic1Portrait,
@@ -91,5 +99,11 @@ export default {
     Rectangle,
     Group,
     facebook,
-    google, email
+    google, email,
+    macchiato1portrait,
+    macchiato2portrait,
+    macchiato3portrait,
+    americanoPic1square,
+    americanoPic2square,
+    americanoPic3square,
 }

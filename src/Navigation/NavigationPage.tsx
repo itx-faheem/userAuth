@@ -6,6 +6,7 @@ import LoginScreen from '../Screens/Auth/Login/LoginScreen';
 import SignUpScreen from '../Screens/Auth/SignUp/SignUpScreen';
 import HomeScreen from "../Screens/main/HomeScreen";
 import TabNavigator from '../Tab/TabNavigator';
+import { DetailScreen, PaymentScreen } from '../Screens/main';
 
 
 const NavigationPage = () => {
@@ -30,6 +31,8 @@ const NavigationPage = () => {
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen name="Home" component={TabNavigator} />
+        <Stack.Screen name='PaymentScreen' component={PaymentScreen} />
+        <Stack.Screen name='DetailScreen' component={DetailScreen} />
       </>
     </Stack.Navigator>
   );
