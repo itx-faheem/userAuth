@@ -5,6 +5,7 @@ import SplashScreen from "../../Component/Splash";
 import LoginScreen from '../Screens/Auth/Login/LoginScreen';
 import SignUpScreen from '../Screens/Auth/SignUp/SignUpScreen';
 import HomeScreen from "../Screens/main/HomeScreen";
+import TabNavigator from '../Tab/TabNavigator';
 
 
 const NavigationPage = () => {
@@ -19,14 +20,16 @@ const NavigationPage = () => {
 
   const Stack = createNativeStackNavigator();
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      initialRouteName='Home'
+      screenOptions={{ headerShown: false }}>
       {isSplashscreen && (
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
       )}
       <>
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="Home" component={TabNavigator} />
       </>
     </Stack.Navigator>
   );
