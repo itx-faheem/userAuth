@@ -51,7 +51,9 @@ import Group from "../assets/Group.png";
 import facebook from "../assets/facebook.png";
 import google from "../assets/google.png";
 import email from "../assets/email.png";
-
+import element from "../assets/element.png";
+import Adam from "../assets/Adam.png";
+import search from "../assets/search.png";
 
 export default {
     amazonpay,
@@ -106,4 +108,7 @@ export default {
     americanoPic1square,
     americanoPic2square,
     americanoPic3square,
+    element,
+    Adam,
+    search
 }

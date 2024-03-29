@@ -22,6 +22,7 @@ const SIZES = {
     xLarge: 20,
     xxLarge: 22,
     xxxLarge: 24,
+    big: 28,
 };
 export {
     COLORS,

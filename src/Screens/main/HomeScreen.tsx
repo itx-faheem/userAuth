@@ -1,21 +1,150 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, ScrollView, TextInput, Alert, FlatList, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { CoffeeData } from '../../data'
+import { COLORS, SIZES, images } from '../../../constant'
+import { CoffeCarts, HomeHeader } from '../custom/Home'
+import SearchIcon from "react-native-vector-icons/AntDesign";
+import AppButton from '../../../Component/AppButton'
 
+
+interface Props {
+    NamesData: string,
+    id: number,
+    isActive: any
+
+}
 const HomeScreen = () => {
-    console.log("CoffeeData", CoffeeData.length);
+    const [searchText, setsearchText] = useState('')
+    const [coffeeNames, setCoffeeNames] = useState<string[]>([]);
+    const [activeName, setactiveName] = useState<string>('');
+    const [categoryIndex, setcategoryIndex] = useState({
+        index: 0,
+        category: CoffeeData
+    })
+    useEffect(() => {
+        const names = CoffeeData.map(coffee => coffee.name);
+        names.unshift("All")
+        const uniqueNames = [...new Set(names)];
+        setCoffeeNames(uniqueNames)
+    }, [])
+
+
+
+    const handleActiveName = (name: string) => {
+        setactiveName(name);
+    };
+    useEffect(() => {
+        if (coffeeNames.length > 0) {
+            setactiveName(coffeeNames[0])
+        }
+    }, [coffeeNames]);
+
+    const RenderItem: React.FC<Props> = ({ NamesData, id, }) => {
+        return (
+            <TouchableOpacity
+                onPress={() => handleActiveName(NamesData)}
+                style={styles.coffeeNamesStyle} key={id}>
+                <Text style={{
+                    color: activeName === NamesData ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex,
+                    fontWeight: "bold",
+                    fontSize: SIZES.medium
+                }}  >{NamesData}</Text>
+                {activeName === NamesData && (
+                    <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: COLORS.primaryOrangeHex }} />)
+                }
+            </TouchableOpacity>
+        );
+    };
+
+    const RenderItemMy: React.FC<{ item: any }> = ({ item }) => {
+        return (
+            <CoffeCarts
+                id={item.id}
+                index={item.index}
+                type={item.type}
+                rosted={item.rosted}
+                imagelink_square={item.imagelink_square}
+                name={item.name}
+                special_ingredient={item.special_ingredient}
+                average_rating={item.average_rating}
+                price={item.price}
+                buttonPressHandle={item.buttonPressHandle}
+            />
+        );
+    };
+
 
     return (
-        <View>
-            <Text>HomeScreen</Text>
-            {/* <CoffeeData /> */}
+
+        <View style={styles.container} >
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ flexGrow: 1, gap: 20 }}>
+                <HomeHeader />
+                <View style={styles.searchWrapper} >
+                    <Image source={images.search}
+                        style={{ width: 25, height: 25, tintColor: searchText.length > 0 ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex, }} />
+                    <TextInput
+                        placeholder='Find Your Coffee...'
+                        value={searchText}
+                        style={styles.textInputContainer}
+                        onChangeText={text => setsearchText(text)}
+                        placeholderTextColor={COLORS.primaryLightGreyHex}
+                    />
+                </View>
+                <View style={{ gap: 10 }} >
+                    <FlatList
+                        data={coffeeNames}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item }) => <RenderItem NamesData={item} />}
+                        horizontal={true}
+                    />
+                </View>
+                <View style={{ top: 20, }} >
+                    <FlatList
+                        data={CoffeeData}
+                        showsHorizontalScrollIndicator={false}
+                        horizontal={true}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item }) => <RenderItemMy item={item} />}
+                    />
+                </View>
+            </ScrollView>
         </View>
     )
 }
 
 export default HomeScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: COLORS.primaryBlackHex,
+        paddingVertical: 12,
+        paddingHorizontal: 14
+    },
+    textInputContainer: {
+        color: COLORS.White,
+        fontSize: SIZES.medium,
+        width: "85%"
+    },
+    searchWrapper: {
+        flexDirection: 'row',
+        alignItems: "center",
+        gap: 10,
+        backgroundColor: COLORS.primaryDarkGreyHex,
+        borderRadius: 8,
+        paddingHorizontal: 10
+    },
+    coffeeNamesStyle: {
+        marginHorizontal: 10,
+        height: 20,
+        alignItems: 'center',
+        marginBottom: 10
+    }
+
+})
+
 
 
 
