@@ -11,7 +11,6 @@ interface Props {
     NamesData: string,
     id: number,
     isActive: any
-
 }
 const HomeScreen = () => {
     const [searchText, setsearchText] = useState('')
@@ -58,18 +57,20 @@ const HomeScreen = () => {
 
     const RenderItemMy: React.FC<{ item: any }> = ({ item }) => {
         return (
-            <CoffeCarts
-                id={item.id}
-                index={item.index}
-                type={item.type}
-                rosted={item.rosted}
-                imagelink_square={item.imagelink_square}
-                name={item.name}
-                special_ingredient={item.special_ingredient}
-                average_rating={item.average_rating}
-                price={item.price}
-                buttonPressHandle={item.buttonPressHandle}
-            />
+            <>
+                <CoffeCarts
+                    id={item.id}
+                    index={item.index}
+                    type={item.type}
+                    rosted={item.rosted}
+                    imagelink_square={item.imagelink_square}
+                    name={item.name}
+                    special_ingredient={item.special_ingredient}
+                    average_rating={item.average_rating}
+                    prices={item.prices[2]}
+                    buttonPressHandle={item.buttonPressHandle}
+                />
+            </>
         );
     };
 

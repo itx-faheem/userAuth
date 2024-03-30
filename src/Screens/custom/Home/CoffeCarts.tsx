@@ -3,6 +3,8 @@ import React from 'react'
 import LinearGradient from "react-native-linear-gradient";
 import { COLORS, SIZES } from "../../../../constant";
 import Star from "react-native-vector-icons/AntDesign";
+import { IconButton } from '.';
+
 interface CoffeCardProp {
     id: string;
     index: number;
@@ -12,7 +14,7 @@ interface CoffeCardProp {
     name: string;
     special_ingredient: string;
     average_rating: number;
-    price: any;
+    prices: any;
     buttonPressHandle: () => void;
 }
 
@@ -27,37 +29,47 @@ const CoffeCarts: React.FC<CoffeCardProp> = ({
     name,
     special_ingredient,
     average_rating,
-    price,
+    prices,
     buttonPressHandle,
 }) => {
     return (
-        <View style={styles.container} >
-            <LinearGradient
-                start={{ x: 0, y: 1 }}
-                end={{ x: 1, y: 0 }}
-                style={styles.LinearGradientStyle}
-                colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
-            >
-                <ImageBackground
-                    source={imagelink_square}
-                    resizeMode='cover'
-                    style={styles.CardImageBG}
+        <>
+            < View style={styles.container} >
+                <LinearGradient
+                    start={{ x: 0, y: 1 }}
+                    end={{ x: 1, y: 0 }}
+                    style={styles.LinearGradientStyle}
+                    colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
                 >
-                    <View style={styles.CardRatingContainer} >
-                        <Star name='star'
-                            color={COLORS.primaryOrangeHex}
-                            size={16}
-                        />
-                        <Text style={styles.CardRatingText}>{average_rating}</Text>
+                    <ImageBackground
+                        source={imagelink_square}
+                        resizeMode='cover'
+                        style={styles.CardImageBG}
+                    >
+                        <View style={styles.CardRatingContainer} >
+                            <Star name='star'
+                                color={COLORS.primaryOrangeHex}
+                                size={16}
+                            />
+                            <Text style={styles.CardRatingText}>{average_rating}</Text>
+                        </View>
+                    </ImageBackground>
+                    <View style={{ gap: 5 }} >
+                        <Text style={styles.CardTitle}>{name}</Text>
+                        <Text style={styles.special_ingredientText} >{special_ingredient}</Text>
                     </View>
-                </ImageBackground>
-                <Text style={styles.CardTitle}>{name}</Text>
-                {/* <View>
-                    <Image style={styles.imgStyle} resizeMode='cover' source={imagelink_square} />
-                    <Text style={styles.nameStyle}  >{name}</Text>
-                </View> */}
-            </LinearGradient >
-        </View>
+                    <View style={styles.coffeCardBottomContainer} >
+                        <View >
+                            <Text style={styles.dollarStyle} >
+                                $
+                                <Text style={{ color: COLORS.White, fontWeight: "800", }} >  {prices.price}</Text>
+                            </Text>
+                        </View>
+                        <IconButton />
+                    </View>
+                </LinearGradient >
+            </View >
+        </>
     )
 }
 
@@ -82,6 +94,7 @@ const styles = StyleSheet.create({
     CardTitle: {
         color: COLORS.White,
         fontSize: SIZES.font,
+        fontWeight: "bold",
 
     },
     CardImageBG: {
@@ -94,7 +107,7 @@ const styles = StyleSheet.create({
     CardRatingText: {
         lineHeight: 22,
         color: COLORS.White,
-        fontSize: SIZES.medium
+        fontSize: SIZES.medium,
     },
     CardRatingContainer: {
         flexDirection: "row",
@@ -107,5 +120,20 @@ const styles = StyleSheet.create({
         top: 0,
         borderBottomLeftRadius: 30,
         paddingHorizontal: 12,
+    },
+    special_ingredientText: {
+        color: COLORS.White,
+        fontSize: SIZES.small,
+    },
+    dollarStyle: {
+        color: COLORS.primaryOrangeHex,
+        fontWeight: "700",
+        fontSize: SIZES.font
+    },
+    coffeCardBottomContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginTop: 10
     }
 })
